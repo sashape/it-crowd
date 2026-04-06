@@ -43,4 +43,4 @@ Remaining:
 - `docs/examples/task/example-task-log.md`
 - `docs/examples/feature/example-feature-overview.md`
 - `AGENT_RULES/TASK_WORKFLOW.md`
-- `docs/feature-log/2026-04-06-separate-task-and-feature-examples.md`
+- `docs/feature-log/2026/04/06/0014-separate-task-and-feature-examples.md`

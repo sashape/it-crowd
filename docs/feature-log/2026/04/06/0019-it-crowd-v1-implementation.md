@@ -62,4 +62,4 @@ Remaining:
 - `README.md`
 - `backend/*`
 - `frontend/*`
-- `docs/feature-log/2026-04-06-it-crowd-v1-implementation.md`
+- `docs/feature-log/2026/04/06/0019-it-crowd-v1-implementation.md`

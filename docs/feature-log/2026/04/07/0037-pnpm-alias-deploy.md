@@ -1,7 +1,7 @@
 # Pnpm, Alias Imports, and Deploy Instructions
 
 ## Goal
-Migrate the repository from npm to pnpm, introduce `~/` import alias across backend source code, and add deployment instructions in `DEPLY.md` with Docker, CR (container registry), and Makefile usage.
+Migrate the repository from npm to pnpm, introduce `~/` import alias across backend source code, and add deployment instructions in `AGENT_RULES/DEPLOY.md` with Docker, CR (container registry), and Makefile usage.
 
 ## Scope
 Included:
@@ -9,7 +9,7 @@ Included:
 - configure TypeScript alias `~/* -> src/*` for backend;
 - refactor backend source imports to use `~/...`;
 - ensure build/dev pipeline works with aliases;
-- add deployment instruction doc `DEPLY.md` covering Docker image build/push and Makefile workflows.
+- add deployment instruction doc `AGENT_RULES/DEPLOY.md` covering Docker image build/push and Makefile workflows.
 
 Out of scope:
 - frontend architecture changes;
@@ -20,7 +20,7 @@ Out of scope:
 - [x] Update workspace/package-manager config for pnpm.
 - [x] Configure backend alias support (`tsconfig`, build scripts).
 - [x] Refactor backend source imports to `~/...`.
-- [x] Add `DEPLY.md` and supporting deployment helper files.
+- [x] Add deployment guide and supporting deployment helper files.
 - [x] Run validation (typecheck, lint, test, build).
 
 ## Progress
@@ -28,7 +28,7 @@ Out of scope:
 - 2026-04-07: Added `pnpm-workspace.yaml`, switched root scripts to pnpm filters, and generated `pnpm-lock.yaml`.
 - 2026-04-07: Updated backend build pipeline to use `tsc-alias`, added TS path mapping for `~/`.
 - 2026-04-07: Refactored backend source imports from relative paths to `~/...` alias.
-- 2026-04-07: Added deployment artifacts: `DEPLY.md`, `Makefile`, `backend/Dockerfile`, `.dockerignore`.
+- 2026-04-07: Added deployment artifacts: `AGENT_RULES/DEPLOY.md`, `Makefile`, `backend/Dockerfile`, `.dockerignore`.
 - 2026-04-07: Updated README run instructions to pnpm and linked deploy guide.
 
 ## Validation
@@ -57,8 +57,8 @@ Remaining:
 - `backend/tsconfig.json`
 - `backend/vitest.config.ts`
 - `backend/src/**/*.ts` (import alias migration)
-- `DEPLY.md`
+- `AGENT_RULES/DEPLOY.md`
 - `Makefile`
 - `backend/Dockerfile`
 - `.dockerignore`
-- `docs/feature-log/2026-04-07-pnpm-alias-deploy.md`
+- `docs/feature-log/2026/04/07/0037-pnpm-alias-deploy.md`

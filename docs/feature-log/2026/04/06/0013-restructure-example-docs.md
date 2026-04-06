@@ -40,10 +40,10 @@ Remaining:
 - none.
 
 ## Files touched
-- `docs/feature-log/2026-04-06-restructure-example-docs.md`
+- `docs/feature-log/2026/04/06/0013-restructure-example-docs.md`
 - `docs/examples/task/example-task-decomposition.md`
 - `docs/examples/task/example-good-commit-flow.md`
 - `docs/examples/task/example-task-log.md`
 - `docs/examples/feature/example-feature-overview.md`
 - `AGENT_RULES/TASK_WORKFLOW.md`
-- `docs/feature-log/2026-04-06-feature-log-location-and-examples.md`
+- `docs/feature-log/2026/04/06/0012-feature-log-location-and-examples.md`

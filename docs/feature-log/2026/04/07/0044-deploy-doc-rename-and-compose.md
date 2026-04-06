@@ -53,4 +53,4 @@ Remaining:
 - `docker-compose.yml`
 - `Makefile`
 - `README.md`
-- `docs/feature-log/2026-04-07-deploy-doc-rename-and-compose.md`
+- `docs/feature-log/2026/04/07/0044-deploy-doc-rename-and-compose.md`
