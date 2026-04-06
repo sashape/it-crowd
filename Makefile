@@ -3,7 +3,7 @@ IMAGE ?= ghcr.io/your-org/$(APP_NAME)
 TAG ?= latest
 CR ?= ghcr.io
 
-.PHONY: install dev typecheck lint test build migrate docker-build docker-push docker-run cr-login
+.PHONY: install dev typecheck lint test build migrate compose-up compose-down compose-logs docker-build docker-push docker-run cr-login
 
 install:
 	pnpm install
@@ -25,6 +25,15 @@ build:
 
 migrate:
 	pnpm --filter it-crowd-backend db:migrate
+
+compose-up:
+	docker compose up --build -d
+
+compose-down:
+	docker compose down
+
+compose-logs:
+	docker compose logs -f
 
 cr-login:
 	docker login $(CR)
