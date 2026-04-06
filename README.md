@@ -36,4 +36,4 @@ Backend-first digital company platform.
 ## Notes
 - All POST endpoints require `Idempotency-Key`.
 - Deterministic mock mode supports full flow without external LLM keys.
-- Deploy guide: `DEPLY.md` (Docker + CR + Makefile flow).
+- Deploy guide: `AGENT_RULES/DEPLOY.md` (Docker + CR + docker-compose + Makefile flow).

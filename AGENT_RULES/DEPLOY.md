@@ -1,6 +1,6 @@
-# DEPLY (Deploy) Instructions
+# DEPLOY Instructions
 
-This document describes the standard deploy flow for IT-CROWD backend using Docker, CR (Container Registry), and Makefile targets.
+This document describes the standard deploy flow for IT-CROWD backend using Docker, CR (Container Registry), docker-compose, and Makefile targets.
 
 ## Prerequisites
 - Docker installed and running.
@@ -22,6 +22,27 @@ make lint
 make test
 make build
 ```
+
+## Docker Compose (Local Stack)
+Start backend + postgres:
+
+```bash
+make compose-up
+```
+
+Stop stack:
+
+```bash
+make compose-down
+```
+
+Show logs:
+
+```bash
+make compose-logs
+```
+
+The compose file is `docker-compose.yml` in the repository root.
 
 ## Docker Image Build
 Build backend image:

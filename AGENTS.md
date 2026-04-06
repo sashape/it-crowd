@@ -26,8 +26,9 @@ Do not add multi-tenant auth, full container orchestration, or broad platform ab
 Use this file as the top-level operating guide.
 
 Before starting any non-trivial task, also read:
-- `AGENT_RULES/CODING_RULES.md` — implementation, architecture, validation, testing, and review rules
-- `AGENT_RULES/TASK_WORKFLOW.md` — task decomposition, feature logs, intermediate commits, git workflow, and GitHub publishing rules
+- `AGENT_RULES/CODING_RULES.md` - implementation, architecture, validation, testing, and review rules
+- `AGENT_RULES/TASK_WORKFLOW.md` - task decomposition, feature logs, intermediate commits, git workflow, and GitHub publishing rules
+- `AGENT_RULES/DEPLOY.md` - deployment workflow with Docker, CR, docker-compose, and Makefile targets
 
 If the repository contains feature-specific plans or task documents, follow them together with this file.
 
@@ -87,6 +88,7 @@ Push to GitHub only when publishing is part of the task or expected by the workf
 Follow:
 - `AGENT_RULES/CODING_RULES.md` for code structure, validation, testing, and review
 - `AGENT_RULES/TASK_WORKFLOW.md` for decomposition, logging, commits, and GitHub workflow
+- `AGENT_RULES/DEPLOY.md` for deployment commands and docker-compose usage
 
 ## Red lines
 Do not:
@@ -111,6 +113,7 @@ Choose the most conservative implementation that:
 For any non-trivial task:
 - read `AGENT_RULES/CODING_RULES.md`
 - read `AGENT_RULES/TASK_WORKFLOW.md`
+- read `AGENT_RULES/DEPLOY.md` when touching deployment or runtime operations
 - decompose the work
 - log the work
 - implement in steps
