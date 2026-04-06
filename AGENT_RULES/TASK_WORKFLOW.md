@@ -79,7 +79,7 @@ Preferred file naming:
 The feature log must be created early and updated during the task, not only at the end.
 
 Reference examples:
-- `docs/examples/feature/example-feature-log.md`
+- `docs/examples/task/example-task-log.md`
 - `docs/examples/task/example-good-commit-flow.md`
 - `docs/examples/task/example-task-decomposition.md`
 

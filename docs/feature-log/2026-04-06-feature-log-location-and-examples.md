@@ -45,6 +45,7 @@ Remaining:
 - `docs/feature-log/2026-04-06-feature-log-location-and-examples.md`
 - `docs/examples/task/example-good-commit-flow.md`
 - `docs/examples/task/example-task-decomposition.md`
-- `docs/examples/feature/example-feature-log.md`
+- `docs/examples/task/example-task-log.md`
+- `docs/examples/feature/example-feature-overview.md`
 - `AGENTS.md`
 - `AGENT_RULES/TASK_WORKFLOW.md`

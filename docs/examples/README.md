@@ -8,10 +8,13 @@ Real task execution logs must be kept in:
 
 ## Folders
 - `docs/examples/task/`:
-  examples of task decomposition and commit flow for non-trivial implementation work.
+  examples of execution artifacts for non-trivial implementation work
+  (`task decomposition`, `commit flow`, `task log`).
 - `docs/examples/feature/`:
-  examples of feature-log style documentation for user-visible feature changes.
+  examples of product-level feature artifacts
+  (`feature overview`, `scope`, `delivery slices`).
 
 ## Notes
 - Keep examples generic and reusable.
 - Do not place real dated progress logs here.
+- Real execution logs always belong in `docs/feature-log/`.

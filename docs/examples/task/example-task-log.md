@@ -1,4 +1,4 @@
-# Add Approval Expiration Audit Event
+# Example: Task Log (Approval Expiration Audit Event)
 
 ## Goal
 Emit a dedicated domain event when an approval request expires so expiration outcomes are observable in timeline views and audit exports.
