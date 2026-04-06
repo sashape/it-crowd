@@ -79,9 +79,9 @@ Preferred file naming:
 The feature log must be created early and updated during the task, not only at the end.
 
 Reference examples:
-- `docs/feature-log/example-feature-log.md`
-- `docs/feature-log/example-good-commit-flow.md`
-- `docs/feature-log/example-task-decomposition.md`
+- `docs/examples/feature/example-feature-log.md`
+- `docs/examples/task/example-good-commit-flow.md`
+- `docs/examples/task/example-task-decomposition.md`
 
 ## Feature log template
 Each feature log should contain these sections:
