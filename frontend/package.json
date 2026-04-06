@@ -1,0 +1,10 @@
+{
+  "name": "it-crowd-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "echo \"Frontend placeholder for backend-first v1\"",
+    "build": "echo \"Frontend placeholder\""
+  }
+}
