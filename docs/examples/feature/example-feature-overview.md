@@ -24,13 +24,13 @@ Out of scope:
 
 ## Delivery slices (tasks)
 1. Define summary quality contract and decision object.
-   - log: `docs/feature-log/2026-04-10-summary-quality-contract.md`
+   - log: `docs/feature-log/2026/04/10/1015-summary-quality-contract.md`
 2. Implement policy engine evaluation for quality gates.
-   - log: `docs/feature-log/2026-04-12-policy-quality-gates.md`
+   - log: `docs/feature-log/2026/04/12/1140-policy-quality-gates.md`
 3. Wire orchestration behavior and event emission.
-   - log: `docs/feature-log/2026-04-14-quality-escalation-flow.md`
+   - log: `docs/feature-log/2026/04/14/0925-quality-escalation-flow.md`
 4. Add integration coverage and deterministic mock checks.
-   - log: `docs/feature-log/2026-04-15-quality-flow-tests.md`
+   - log: `docs/feature-log/2026/04/15/1735-quality-flow-tests.md`
 
 ## Acceptance criteria
 - low-quality summaries are consistently rejected or escalated by policy;

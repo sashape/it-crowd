@@ -71,7 +71,7 @@ Every non-trivial task must have a markdown feature log that records:
 - result or remaining work
 
 Standard location:
-- `docs/feature-log/`
+- `docs/feature-log/YYYY/MM/DD/HHMM-short-feature-name.md`
 
 Do not use raw private reasoning as project documentation.
 

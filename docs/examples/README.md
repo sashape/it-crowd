@@ -4,7 +4,7 @@
 This directory stores educational examples only.
 
 Real task execution logs must be kept in:
-- `docs/feature-log/`
+- `docs/feature-log/YYYY/MM/DD/HHMM-short-feature-name.md`
 
 ## Folders
 - `docs/examples/task/`:
@@ -17,4 +17,4 @@ Real task execution logs must be kept in:
 ## Notes
 - Keep examples generic and reusable.
 - Do not place real dated progress logs here.
-- Real execution logs always belong in `docs/feature-log/`.
+- Real execution logs always belong in `docs/feature-log/YYYY/MM/DD/`.

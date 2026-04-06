@@ -68,13 +68,13 @@ Do not create fake decomposition. Steps must correspond to real implementation w
 Every non-trivial task must have a markdown feature log.
 
 Standard location:
-- `docs/feature-log/`
+- `docs/feature-log/YYYY/MM/DD/`
 
 Alternative locations should be used only when a repository already has a documented legacy convention.
 
 Preferred file naming:
-- `YYYY-MM-DD-short-feature-name.md`
-- or `feature-short-name.md` if the repository already has a clear convention
+- `HHMM-short-feature-name.md` inside the daily folder
+- full path format: `docs/feature-log/YYYY/MM/DD/HHMM-short-feature-name.md`
 
 The feature log must be created early and updated during the task, not only at the end.
 
