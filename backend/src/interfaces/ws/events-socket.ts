@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import websocket from '@fastify/websocket';
-import type { AppContainer } from '../../application/container.js';
+import type { AppContainer } from '~/application/container.js';
 
 interface SocketConnection {
   send: (message: string) => void;

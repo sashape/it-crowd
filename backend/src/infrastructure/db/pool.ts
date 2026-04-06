@@ -1,6 +1,6 @@
 import type { QueryResult, QueryResultRow } from 'pg';
 import { Pool } from 'pg';
-import { appConfig } from '../../application/services/config.js';
+import { appConfig } from '~/application/services/config.js';
 
 export interface DatabaseClient {
   query<T extends QueryResultRow>(sql: string, params?: unknown[]): Promise<QueryResult<T>>;

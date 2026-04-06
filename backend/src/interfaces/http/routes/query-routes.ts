@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from 'fastify';
 import { z } from 'zod';
-import type { AppContainer } from '../../../application/container.js';
-import { sendError } from '../error-mapper.js';
+import type { AppContainer } from '~/application/container.js';
+import { sendError } from '~/interfaces/http/error-mapper.js';
 
 const RunParamsSchema = z.object({
   id: z.string().uuid(),

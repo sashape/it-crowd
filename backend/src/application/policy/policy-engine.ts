@@ -1,6 +1,6 @@
-import type { PolicyDecision } from '../../domain/errors.js';
-import type { ApprovalType, RiskLevel, TaskPhase, TaskStatus } from '../../domain/enums.js';
-import type { Task } from '../../domain/models.js';
+import type { PolicyDecision } from '~/domain/errors.js';
+import type { ApprovalType, RiskLevel, TaskPhase, TaskStatus } from '~/domain/enums.js';
+import type { Task } from '~/domain/models.js';
 
 export interface PolicyLimits {
   maxDelegationDepth: number;

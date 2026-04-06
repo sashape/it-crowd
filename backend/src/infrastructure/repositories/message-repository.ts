@@ -1,5 +1,5 @@
-import type { Message } from '../../domain/models.js';
-import type { DatabaseClient } from '../db/pool.js';
+import type { Message } from '~/domain/models.js';
+import type { DatabaseClient } from '~/infrastructure/db/pool.js';
 
 interface MessageRow {
   id: string;

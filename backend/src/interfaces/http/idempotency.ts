@@ -1,5 +1,5 @@
 import type { FastifyRequest } from 'fastify';
-import { DomainError } from '../../domain/errors.js';
+import { DomainError } from '~/domain/errors.js';
 
 export function requireIdempotencyKey(request: FastifyRequest): string {
   const header = request.headers['idempotency-key'];

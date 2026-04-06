@@ -1,5 +1,5 @@
-import type { Company } from '../../domain/models.js';
-import type { DatabaseClient } from '../db/pool.js';
+import type { Company } from '~/domain/models.js';
+import type { DatabaseClient } from '~/infrastructure/db/pool.js';
 
 interface CompanyRow {
   id: string;

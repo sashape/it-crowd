@@ -1,7 +1,7 @@
-import type { ApprovalRepository } from '../../infrastructure/repositories/approval-repository.js';
-import type { TaskRepository } from '../../infrastructure/repositories/task-repository.js';
-import type { EventBus } from '../services/event-bus.js';
-import { createDomainEvent } from '../services/event-factory.js';
+import type { ApprovalRepository } from '~/infrastructure/repositories/approval-repository.js';
+import type { TaskRepository } from '~/infrastructure/repositories/task-repository.js';
+import type { EventBus } from '~/application/services/event-bus.js';
+import { createDomainEvent } from '~/application/services/event-factory.js';
 
 export class ExpireApprovalsUseCase {
   public constructor(

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Pool } from 'pg';
-import { appConfig } from '../../application/services/config.js';
+import { appConfig } from '~/application/services/config.js';
 
 const schemaPath = join(process.cwd(), 'src', 'infrastructure', 'db', 'schema.sql');
 const sql = readFileSync(schemaPath, 'utf-8');

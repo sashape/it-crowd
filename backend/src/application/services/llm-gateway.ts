@@ -1,6 +1,6 @@
-import type { LlmMode, LlmProvider } from '../../domain/enums.js';
-import type { Agent, Task } from '../../domain/models.js';
-import { stableNumberFromString } from './utils.js';
+import type { LlmMode, LlmProvider } from '~/domain/enums.js';
+import type { Agent, Task } from '~/domain/models.js';
+import { stableNumberFromString } from '~/application/services/utils.js';
 
 export interface LlmGatewayInput {
   mode: LlmMode;

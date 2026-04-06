@@ -1,5 +1,5 @@
-import type { Agent } from '../../domain/models.js';
-import type { DatabaseClient } from '../db/pool.js';
+import type { Agent } from '~/domain/models.js';
+import type { DatabaseClient } from '~/infrastructure/db/pool.js';
 
 interface AgentRow {
   id: string;

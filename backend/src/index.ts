@@ -1,7 +1,7 @@
-import { appConfig } from './application/services/config.js';
-import { appContainer } from './application/container.js';
-import { pool } from './infrastructure/db/pool.js';
-import { buildApp } from './app.js';
+import { appConfig } from '~/application/services/config.js';
+import { appContainer } from '~/application/container.js';
+import { pool } from '~/infrastructure/db/pool.js';
+import { buildApp } from '~/app.js';
 
 const app = await buildApp(appContainer);
 

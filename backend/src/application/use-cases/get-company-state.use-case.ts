@@ -1,11 +1,11 @@
-import type { CompanyRepository } from '../../infrastructure/repositories/company-repository.js';
-import type { AgentRepository } from '../../infrastructure/repositories/agent-repository.js';
-import type { TaskRepository } from '../../infrastructure/repositories/task-repository.js';
-import type { ApprovalRepository } from '../../infrastructure/repositories/approval-repository.js';
-import type { EventLogRepository } from '../../infrastructure/repositories/event-log-repository.js';
-import type { OrchestrationRunRepository } from '../../infrastructure/repositories/orchestration-run-repository.js';
-import type { ExpireApprovalsUseCase } from './expire-approvals.use-case.js';
-import { DomainError } from '../../domain/errors.js';
+import type { CompanyRepository } from '~/infrastructure/repositories/company-repository.js';
+import type { AgentRepository } from '~/infrastructure/repositories/agent-repository.js';
+import type { TaskRepository } from '~/infrastructure/repositories/task-repository.js';
+import type { ApprovalRepository } from '~/infrastructure/repositories/approval-repository.js';
+import type { EventLogRepository } from '~/infrastructure/repositories/event-log-repository.js';
+import type { OrchestrationRunRepository } from '~/infrastructure/repositories/orchestration-run-repository.js';
+import type { ExpireApprovalsUseCase } from '~/application/use-cases/expire-approvals.use-case.js';
+import { DomainError } from '~/domain/errors.js';
 
 export class GetCompanyStateUseCase {
   public constructor(

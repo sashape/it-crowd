@@ -13,7 +13,7 @@ import type {
   TaskKind,
   TaskPhase,
   TaskStatus,
-} from './enums.js';
+} from '~/domain/enums.js';
 
 export interface Company {
   id: string;

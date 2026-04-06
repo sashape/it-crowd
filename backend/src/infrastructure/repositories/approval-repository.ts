@@ -1,6 +1,6 @@
-import type { Approval, Task } from '../../domain/models.js';
-import type { ApprovalStatus, ApprovalType } from '../../domain/enums.js';
-import type { DatabaseClient } from '../db/pool.js';
+import type { Approval, Task } from '~/domain/models.js';
+import type { ApprovalStatus, ApprovalType } from '~/domain/enums.js';
+import type { DatabaseClient } from '~/infrastructure/db/pool.js';
 
 interface ApprovalRow {
   id: string;

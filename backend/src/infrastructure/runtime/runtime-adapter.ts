@@ -1,4 +1,4 @@
-import type { Agent } from '../../domain/models.js';
+import type { Agent } from '~/domain/models.js';
 
 export interface RuntimeExecutionRequest {
   agent: Agent;

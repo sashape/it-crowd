@@ -1,5 +1,5 @@
 import type { FastifyReply } from 'fastify';
-import { DomainError } from '../../domain/errors.js';
+import { DomainError } from '~/domain/errors.js';
 
 export function sendError(reply: FastifyReply, error: unknown): void {
   if (error instanceof DomainError) {

@@ -1,13 +1,13 @@
 import Fastify, { type FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
-import type { AppContainer } from './application/container.js';
-import { appConfig } from './application/services/config.js';
-import { companyRoutes } from './interfaces/http/routes/company-routes.js';
-import { taskRoutes } from './interfaces/http/routes/task-routes.js';
-import { messageRoutes } from './interfaces/http/routes/message-routes.js';
-import { approvalRoutes } from './interfaces/http/routes/approval-routes.js';
-import { queryRoutes } from './interfaces/http/routes/query-routes.js';
-import { registerEventSocket } from './interfaces/ws/events-socket.js';
+import type { AppContainer } from '~/application/container.js';
+import { appConfig } from '~/application/services/config.js';
+import { companyRoutes } from '~/interfaces/http/routes/company-routes.js';
+import { taskRoutes } from '~/interfaces/http/routes/task-routes.js';
+import { messageRoutes } from '~/interfaces/http/routes/message-routes.js';
+import { approvalRoutes } from '~/interfaces/http/routes/approval-routes.js';
+import { queryRoutes } from '~/interfaces/http/routes/query-routes.js';
+import { registerEventSocket } from '~/interfaces/ws/events-socket.js';
 
 export async function buildApp(container: AppContainer): Promise<FastifyInstance> {
   const app = Fastify({ logger: true });

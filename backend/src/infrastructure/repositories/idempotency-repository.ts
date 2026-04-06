@@ -1,4 +1,4 @@
-import type { DatabaseClient } from '../db/pool.js';
+import type { DatabaseClient } from '~/infrastructure/db/pool.js';
 
 export interface StoredIdempotencyRecord {
   responseCode: number;

@@ -1,14 +1,14 @@
-import type { Agent, Approval, Task } from '../../domain/models.js';
-import type { PolicyEngine } from '../policy/policy-engine.js';
-import type { LlmGateway } from '../services/llm-gateway.js';
-import type { RuntimeAdapter } from '../../infrastructure/runtime/runtime-adapter.js';
-import type { TaskRepository } from '../../infrastructure/repositories/task-repository.js';
-import type { ApprovalRepository } from '../../infrastructure/repositories/approval-repository.js';
-import type { EventBus } from '../services/event-bus.js';
-import type { OrchestrationRunRepository } from '../../infrastructure/repositories/orchestration-run-repository.js';
-import { createDomainEvent } from '../services/event-factory.js';
-import { createId, nowIso } from '../services/utils.js';
-import { TaskArtifactSchema } from '../../domain/schemas.js';
+import type { Agent, Approval, Task } from '~/domain/models.js';
+import type { PolicyEngine } from '~/application/policy/policy-engine.js';
+import type { LlmGateway } from '~/application/services/llm-gateway.js';
+import type { RuntimeAdapter } from '~/infrastructure/runtime/runtime-adapter.js';
+import type { TaskRepository } from '~/infrastructure/repositories/task-repository.js';
+import type { ApprovalRepository } from '~/infrastructure/repositories/approval-repository.js';
+import type { EventBus } from '~/application/services/event-bus.js';
+import type { OrchestrationRunRepository } from '~/infrastructure/repositories/orchestration-run-repository.js';
+import { createDomainEvent } from '~/application/services/event-factory.js';
+import { createId, nowIso } from '~/application/services/utils.js';
+import { TaskArtifactSchema } from '~/domain/schemas.js';
 
 interface OrchestrateTaskInput {
   companyId: string;

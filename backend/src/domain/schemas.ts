@@ -9,7 +9,7 @@ import {
   TaskKindValues,
   TaskPhaseValues,
   TaskStatusValues,
-} from './enums.js';
+} from '~/domain/enums.js';
 
 export const BootstrapCompanySchema = z.object({
   company_name: z.string().min(2),

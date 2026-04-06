@@ -1,6 +1,6 @@
-import type { Task } from '../../domain/models.js';
-import type { TaskPhase, TaskStatus } from '../../domain/enums.js';
-import type { DatabaseClient } from '../db/pool.js';
+import type { Task } from '~/domain/models.js';
+import type { TaskPhase, TaskStatus } from '~/domain/enums.js';
+import type { DatabaseClient } from '~/infrastructure/db/pool.js';
 
 interface TaskRow {
   id: string;

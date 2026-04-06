@@ -1,8 +1,8 @@
 import type { FastifyPluginAsync } from 'fastify';
-import { CreateMessageSchema } from '../../../domain/schemas.js';
-import type { AppContainer } from '../../../application/container.js';
-import { requireIdempotencyKey } from '../idempotency.js';
-import { sendError } from '../error-mapper.js';
+import { CreateMessageSchema } from '~/domain/schemas.js';
+import type { AppContainer } from '~/application/container.js';
+import { requireIdempotencyKey } from '~/interfaces/http/idempotency.js';
+import { sendError } from '~/interfaces/http/error-mapper.js';
 
 export function messageRoutes(container: AppContainer): FastifyPluginAsync {
   const routes: FastifyPluginAsync = async (fastify) => {

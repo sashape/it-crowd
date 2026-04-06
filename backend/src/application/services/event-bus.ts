@@ -1,5 +1,5 @@
-import type { DomainEvent } from '../../domain/models.js';
-import type { EventLogRepository } from '../../infrastructure/repositories/event-log-repository.js';
+import type { DomainEvent } from '~/domain/models.js';
+import type { EventLogRepository } from '~/infrastructure/repositories/event-log-repository.js';
 
 type EventSubscriber = (event: DomainEvent) => void;
 

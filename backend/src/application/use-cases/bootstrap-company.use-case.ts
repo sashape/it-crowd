@@ -1,15 +1,15 @@
-import type { BootstrapCompanyInput } from '../../domain/schemas.js';
-import type { Company, OrchestrationRun, Task } from '../../domain/models.js';
-import type { CompanyRepository } from '../../infrastructure/repositories/company-repository.js';
-import type { AgentRepository } from '../../infrastructure/repositories/agent-repository.js';
-import type { AgentInstructionRepository } from '../../infrastructure/repositories/agent-instruction-repository.js';
-import type { OrchestrationRunRepository } from '../../infrastructure/repositories/orchestration-run-repository.js';
-import type { TaskRepository } from '../../infrastructure/repositories/task-repository.js';
-import type { EventBus } from '../services/event-bus.js';
-import type { CompanyGenerator } from '../services/company-generator.js';
-import type { TaskOrchestrator } from '../orchestrator/task-orchestrator.js';
-import { createDomainEvent } from '../services/event-factory.js';
-import { createId, nowIso } from '../services/utils.js';
+import type { BootstrapCompanyInput } from '~/domain/schemas.js';
+import type { Company, OrchestrationRun, Task } from '~/domain/models.js';
+import type { CompanyRepository } from '~/infrastructure/repositories/company-repository.js';
+import type { AgentRepository } from '~/infrastructure/repositories/agent-repository.js';
+import type { AgentInstructionRepository } from '~/infrastructure/repositories/agent-instruction-repository.js';
+import type { OrchestrationRunRepository } from '~/infrastructure/repositories/orchestration-run-repository.js';
+import type { TaskRepository } from '~/infrastructure/repositories/task-repository.js';
+import type { EventBus } from '~/application/services/event-bus.js';
+import type { CompanyGenerator } from '~/application/services/company-generator.js';
+import type { TaskOrchestrator } from '~/application/orchestrator/task-orchestrator.js';
+import { createDomainEvent } from '~/application/services/event-factory.js';
+import { createId, nowIso } from '~/application/services/utils.js';
 
 export interface BootstrapCompanyResult {
   companyId: string;

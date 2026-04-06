@@ -1,5 +1,5 @@
-import type { Agent, Company } from '../../domain/models.js';
-import { createId, nowIso, stableNumberFromString } from './utils.js';
+import type { Agent, Company } from '~/domain/models.js';
+import { createId, nowIso, stableNumberFromString } from '~/application/services/utils.js';
 
 const roleOrder: Agent['role'][] = ['pm', 'tl', 'be', 'fe', 'qa'];
 

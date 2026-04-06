@@ -1,8 +1,8 @@
 import type { FastifyPluginAsync } from 'fastify';
-import { BootstrapCompanySchema } from '../../../domain/schemas.js';
-import type { AppContainer } from '../../../application/container.js';
-import { requireIdempotencyKey } from '../idempotency.js';
-import { sendError } from '../error-mapper.js';
+import { BootstrapCompanySchema } from '~/domain/schemas.js';
+import type { AppContainer } from '~/application/container.js';
+import { requireIdempotencyKey } from '~/interfaces/http/idempotency.js';
+import { sendError } from '~/interfaces/http/error-mapper.js';
 
 export function companyRoutes(container: AppContainer): FastifyPluginAsync {
   const routes: FastifyPluginAsync = async (fastify) => {

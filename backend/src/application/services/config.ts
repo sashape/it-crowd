@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { ConfigSchema } from '../../domain/schemas.js';
+import { ConfigSchema } from '~/domain/schemas.js';
 
 dotenv.config();
 
