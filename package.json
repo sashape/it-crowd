@@ -2,16 +2,13 @@
   "name": "it-crowd",
   "private": true,
   "version": "1.0.0",
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
+  "packageManager": "pnpm@10.28.2",
   "scripts": {
-    "dev": "npm run dev --workspace backend",
-    "dev:backend": "npm run dev --workspace backend",
-    "build": "npm run build --workspace backend",
-    "test": "npm run test --workspace backend",
-    "lint": "npm run lint --workspace backend",
-    "typecheck": "npm run typecheck --workspace backend"
+    "dev": "pnpm --filter it-crowd-backend dev",
+    "dev:backend": "pnpm --filter it-crowd-backend dev",
+    "build": "pnpm --filter it-crowd-backend build",
+    "test": "pnpm --filter it-crowd-backend test",
+    "lint": "pnpm --filter it-crowd-backend lint",
+    "typecheck": "pnpm --filter it-crowd-backend typecheck"
   }
 }

@@ -12,11 +12,11 @@ Backend-first digital company platform.
 ## Run
 1. Create Postgres database and set `backend/.env` from `backend/.env.example`.
 2. Install dependencies:
-   - `npm install`
+   - `pnpm install`
 3. Apply migration:
-   - `npm run db:migrate --workspace backend`
+   - `pnpm --filter it-crowd-backend db:migrate`
 4. Start backend:
-   - `npm run dev --workspace backend`
+   - `pnpm --filter it-crowd-backend dev`
 
 ## API highlights
 - `POST /api/company/bootstrap`
@@ -36,3 +36,4 @@ Backend-first digital company platform.
 ## Notes
 - All POST endpoints require `Idempotency-Key`.
 - Deterministic mock mode supports full flow without external LLM keys.
+- Deploy guide: `DEPLY.md` (Docker + CR + Makefile flow).
