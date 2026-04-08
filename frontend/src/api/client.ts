@@ -15,12 +15,28 @@ export class ApiError extends Error {
   }
 }
 
+export function normalizeApiBaseUrl(value: string | undefined): string {
+  const normalized = value?.trim();
+  if (!normalized) {
+    return DEFAULT_API_BASE;
+  }
+
+  if (normalized.endsWith('/')) {
+    return normalized.slice(0, -1);
+  }
+
+  return normalized;
+}
+
 export function getApiBaseUrl(): string {
-  return import.meta.env.VITE_API_BASE_URL ?? DEFAULT_API_BASE;
+  return normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL);
 }
 
 export function getEventSocketUrl(): string {
-  const apiUrl = new URL(getApiBaseUrl());
+  const apiBase = getApiBaseUrl();
+  const apiUrl = apiBase.startsWith('http://') || apiBase.startsWith('https://')
+    ? new URL(apiBase)
+    : new URL(apiBase, window.location.origin);
   apiUrl.protocol = apiUrl.protocol === 'https:' ? 'wss:' : 'ws:';
   apiUrl.pathname = '/ws/events';
   apiUrl.search = '';
@@ -37,12 +53,26 @@ async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
       signal: controller.signal,
       headers: {
         'content-type': 'application/json',
+        accept: 'application/json',
         ...(init.headers ?? {}),
       },
     });
 
     const text = await response.text();
-    const body = text.length > 0 ? (JSON.parse(text) as unknown) : null;
+    let body: unknown = null;
+
+    if (text.length > 0) {
+      try {
+        body = JSON.parse(text) as unknown;
+      } catch {
+        const trimmed = text.trimStart();
+        const looksLikeHtml = trimmed.startsWith('<!DOCTYPE') || trimmed.startsWith('<html') || trimmed.startsWith('<');
+        const message = looksLikeHtml
+          ? `Backend returned HTML instead of JSON for ${path}. Check VITE_API_BASE_URL and make sure backend is running on ${getApiBaseUrl()}.`
+          : `Backend returned a non-JSON response for ${path}.`;
+        throw new ApiError(message, response.status, null);
+      }
+    }
 
     if (!response.ok) {
       const errorBody = body as DomainErrorResponse | null;
