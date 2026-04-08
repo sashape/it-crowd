@@ -33,7 +33,8 @@ export default function App(): JSX.Element {
       setMode('office');
       setErrorMessage(null);
     } catch (error) {
-      if (error instanceof ApiError && error.status === 404 && error.code === 'NOT_FOUND') {
+      // First run should open bootstrap flow on any state 404 response.
+      if (error instanceof ApiError && error.status === 404) {
         setMode('bootstrap');
         setWorkspace(null);
         setErrorMessage(null);

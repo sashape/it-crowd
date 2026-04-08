@@ -32,6 +32,13 @@ export function getApiBaseUrl(): string {
   return normalizeApiBaseUrl(import.meta.env.VITE_API_BASE_URL);
 }
 
+export function resolveRequestUrl(path: string): string {
+  const base = getApiBaseUrl();
+  const shouldStripApiPrefix = /\/api$/i.test(base) && path.startsWith('/api/');
+  const normalizedPath = shouldStripApiPrefix ? path.slice('/api'.length) : path;
+  return `${base}${normalizedPath}`;
+}
+
 export function getEventSocketUrl(): string {
   const apiBase = getApiBaseUrl();
   const apiUrl = apiBase.startsWith('http://') || apiBase.startsWith('https://')
@@ -48,7 +55,7 @@ async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(`${getApiBaseUrl()}${path}`, {
+    const response = await fetch(resolveRequestUrl(path), {
       ...init,
       signal: controller.signal,
       headers: {
@@ -76,8 +83,9 @@ async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
 
     if (!response.ok) {
       const errorBody = body as DomainErrorResponse | null;
+      const message = errorBody?.message ?? errorBody?.error ?? `Request failed with ${response.status}`;
       throw new ApiError(
-        errorBody?.message ?? `Request failed with ${response.status}`,
+        message,
         response.status,
         errorBody?.code ?? null,
       );

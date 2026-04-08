@@ -108,8 +108,10 @@ export interface BootstrapPayload {
 
 export interface DomainErrorResponse {
   success: false;
-  code: string;
-  message: string;
+  code?: string;
+  message?: string;
+  error?: string;
+  statusCode?: number;
   details?: unknown;
 }
 
