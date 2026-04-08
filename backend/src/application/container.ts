@@ -20,6 +20,7 @@ import { TaskOrchestrator } from '~/application/orchestrator/task-orchestrator.j
 import { BootstrapCompanyUseCase } from '~/application/use-cases/bootstrap-company.use-case.js';
 import { CreateTaskUseCase } from '~/application/use-cases/create-task.use-case.js';
 import { UpdateTaskUseCase } from '~/application/use-cases/update-task.use-case.js';
+import { UpdateAgentUseCase } from '~/application/use-cases/update-agent.use-case.js';
 import { PostMessageUseCase } from '~/application/use-cases/post-message.use-case.js';
 import { DecideApprovalUseCase } from '~/application/use-cases/decide-approval.use-case.js';
 import { ExpireApprovalsUseCase } from '~/application/use-cases/expire-approvals.use-case.js';
@@ -41,6 +42,7 @@ export function createAppContainer(options: ContainerOptions = {}): {
   bootstrapCompanyUseCase: BootstrapCompanyUseCase;
   createTaskUseCase: CreateTaskUseCase;
   updateTaskUseCase: UpdateTaskUseCase;
+  updateAgentUseCase: UpdateAgentUseCase;
   postMessageUseCase: PostMessageUseCase;
   decideApprovalUseCase: DecideApprovalUseCase;
   expireApprovalsUseCase: ExpireApprovalsUseCase;
@@ -106,6 +108,7 @@ export function createAppContainer(options: ContainerOptions = {}): {
       eventBus,
     ),
     updateTaskUseCase: new UpdateTaskUseCase(companyRepository, taskRepository, policyEngine, runRepository, eventBus),
+    updateAgentUseCase: new UpdateAgentUseCase(companyRepository, agentRepository, eventBus),
     postMessageUseCase: new PostMessageUseCase(companyRepository, messageRepository, runRepository, policyEngine, eventBus),
     decideApprovalUseCase: new DecideApprovalUseCase(
       companyRepository,

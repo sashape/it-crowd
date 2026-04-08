@@ -95,4 +95,34 @@ export class AgentRepository {
 
     return mapAgent(result.rows[0]);
   }
+
+  public async update(agent: Agent): Promise<void> {
+    await this.database.query(
+      `UPDATE agents
+       SET role = $1,
+           name = $2,
+           manager_agent_id = $3,
+           status = $4,
+           model_profile = $5,
+           runtime_kind = $6,
+           delegation_limit = $7,
+           specialization_hint = $8,
+           responsibilities = $9::jsonb,
+           tool_policy = $10::jsonb
+       WHERE id = $11`,
+      [
+        agent.role,
+        agent.name,
+        agent.managerAgentId,
+        agent.status,
+        agent.modelProfile,
+        agent.runtimeKind,
+        agent.delegationLimit,
+        agent.specializationHint,
+        JSON.stringify(agent.responsibilities),
+        JSON.stringify(agent.toolPolicy),
+        agent.id,
+      ],
+    );
+  }
 }

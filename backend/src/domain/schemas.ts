@@ -1,11 +1,13 @@
 import { z } from 'zod';
 import {
+  AgentStatusValues,
   ApprovalTypeValues,
   ApprovalUrgencyValues,
   LlmModeValues,
   LlmProviderValues,
   MessageTypeValues,
   RiskLevelValues,
+  RuntimeKindValues,
   TaskKindValues,
   TaskPhaseValues,
   TaskStatusValues,
@@ -30,6 +32,19 @@ export const UpdateTaskSchema = z.object({
   status: z.enum(TaskStatusValues).optional(),
   current_phase: z.enum(TaskPhaseValues).optional(),
   summary: z.string().min(1).optional(),
+});
+
+export const UpdateAgentSchema = z.object({
+  role: z.enum(['pm', 'tl', 'be', 'fe', 'qa']).optional(),
+  name: z.string().min(1).optional(),
+  manager_agent_id: z.string().uuid().nullable().optional(),
+  status: z.enum(AgentStatusValues).optional(),
+  model_profile: z.string().min(1).optional(),
+  runtime_kind: z.enum(RuntimeKindValues).optional(),
+  delegation_limit: z.number().int().min(0).max(20).optional(),
+  specialization_hint: z.string().min(1).optional(),
+  responsibilities: z.array(z.string().min(1)).optional(),
+  tool_policy: z.record(z.string(), z.unknown()).optional(),
 });
 
 export const HandoffPayloadSchema = z.object({
@@ -88,6 +103,7 @@ export const CreateApprovalSchema = z.object({
 export type BootstrapCompanyInput = z.infer<typeof BootstrapCompanySchema>;
 export type CreateTaskInput = z.infer<typeof CreateTaskSchema>;
 export type UpdateTaskInput = z.infer<typeof UpdateTaskSchema>;
+export type UpdateAgentInput = z.infer<typeof UpdateAgentSchema>;
 export type CreateMessageInput = z.infer<typeof CreateMessageSchema>;
 export type DecideApprovalInput = z.infer<typeof DecideApprovalSchema>;
 export type AppConfigInput = z.infer<typeof ConfigSchema>;

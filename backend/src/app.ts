@@ -7,6 +7,7 @@ import { taskRoutes } from '~/interfaces/http/routes/task-routes.js';
 import { messageRoutes } from '~/interfaces/http/routes/message-routes.js';
 import { approvalRoutes } from '~/interfaces/http/routes/approval-routes.js';
 import { queryRoutes } from '~/interfaces/http/routes/query-routes.js';
+import { agentRoutes } from '~/interfaces/http/routes/agent-routes.js';
 import { registerEventSocket } from '~/interfaces/ws/events-socket.js';
 
 export async function buildApp(container: AppContainer): Promise<FastifyInstance> {
@@ -21,6 +22,7 @@ export async function buildApp(container: AppContainer): Promise<FastifyInstance
   await app.register(taskRoutes(container), { prefix: '/api' });
   await app.register(messageRoutes(container), { prefix: '/api' });
   await app.register(approvalRoutes(container), { prefix: '/api' });
+  await app.register(agentRoutes(container), { prefix: '/api' });
   await app.register(queryRoutes(container), { prefix: '/api' });
   await registerEventSocket(app, container);
 

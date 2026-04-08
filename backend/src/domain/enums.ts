@@ -70,6 +70,7 @@ export type RuntimeKind = (typeof RuntimeKindValues)[number];
 export const EventTypeValues = [
   'company.bootstrapped',
   'agent.created',
+  'agent.updated',
   'task.created',
   'task.decomposed',
   'task.assigned',
