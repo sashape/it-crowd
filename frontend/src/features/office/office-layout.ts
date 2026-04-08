@@ -13,20 +13,20 @@ export const OFFICE_WORLD_SIZE = {
 
 const HUB_POINT: Point = { x: 470, y: 270 };
 
-const DESK_POINTS: Record<Agent['role'], Point> = {
-  pm: { x: 160, y: 140 },
-  tl: { x: 300, y: 130 },
-  be: { x: 470, y: 135 },
-  fe: { x: 640, y: 140 },
-  qa: { x: 790, y: 145 },
+export const DESK_POINTS: Record<Agent['role'], Point> = {
+  pm: { x: 150, y: 170 },
+  tl: { x: 290, y: 162 },
+  be: { x: 450, y: 162 },
+  fe: { x: 610, y: 165 },
+  qa: { x: 770, y: 170 },
 };
 
-const LOUNGE_POINTS: Record<Agent['role'], Point> = {
-  pm: { x: 180, y: 390 },
-  tl: { x: 260, y: 390 },
-  be: { x: 340, y: 390 },
-  fe: { x: 420, y: 390 },
-  qa: { x: 500, y: 390 },
+export const LOUNGE_POINTS: Record<Agent['role'], Point> = {
+  pm: { x: 166, y: 420 },
+  tl: { x: 216, y: 420 },
+  be: { x: 266, y: 420 },
+  fe: { x: 316, y: 420 },
+  qa: { x: 366, y: 420 },
 };
 
 const DISCUSSION_POINTS: Record<Agent['role'], Point> = {

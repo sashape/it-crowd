@@ -36,6 +36,7 @@ Out of scope:
 - 2026-04-08 22:29: Frontend scaffolded with Vite+React+TS+Pixi, bootstrap flow, office shell layout, and API client.
 - 2026-04-08 22:30: Implemented pixel office scene, presence projection, waypoint movement, and bubble queue.
 - 2026-04-08 22:31: Added frontend unit + integration tests and fixed tooling compatibility (`vite`/`vitest`, UTF-8 no BOM normalization).
+- 2026-04-08 23:36: Updated office scene layout so each role has a dedicated workstation with computer; expanded lounge to a sofa seating zone and adjusted idle posture so agents visibly sit when they have no tasks.
 
 ## Validation
 - `pnpm --filter it-crowd-backend test`
@@ -49,6 +50,7 @@ Completed:
 - backend API now exposes message history in company state when explicitly requested;
 - live `message.posted` events provide safe short text for speech bubbles;
 - new frontend main screen ships with bootstrap UX, retro-future pixel office scene, moving agents, speech bubbles, and side observability panels;
+- each agent now has an explicit personal workstation with computer props, and idle lounge behavior uses sofa seating posture;
 - frontend and backend test suites pass with added regression checks.
 
 Remaining:

@@ -9,9 +9,8 @@ interface SpritePattern {
 
 export interface OfficeTextures {
   agents: Record<Agent['role'], Texture>;
-  desk: Texture;
+  workstation: Texture;
   sofa: Texture;
-  table: Texture;
   plant: Texture;
   monitorGlow: Texture;
 }
@@ -46,32 +45,37 @@ const ROLE_PALETTES: Record<Agent['role'], Record<string, number>> = {
   qa: { '.': 0x000000, c: 0xf1d7bb, s: 0x4f6a58, b: 0x2f4739, t: 0xbbd38a, k: 0x29211d },
 };
 
-const DESK_PATTERN: SpritePattern = {
+const WORKSTATION_PATTERN: SpritePattern = {
   pixelSize: 3,
   palette: {
     '.': 0x000000,
     b: 0x4b3127,
-    p: 0x78503d,
+    p: 0x7f5642,
+    d: 0x6b4736,
+    c: 0x2a201d,
+    k: 0x211a18,
     m: 0x85d5c5,
-    s: 0x242326,
+    s: 0x2a272d,
+    g: 0x9de5d8,
+    t: 0x191b20,
   },
   rows: [
-    '................................',
-    '................................',
-    '...bbbbbbbbbbbbbbbbbbbbbbbb....',
-    '...bpppppppppppppppppppppppb....',
-    '...bpppppppppppppppppppppppb....',
-    '...bbbbbbbbbbbbbbbbbbbbbbbb....',
-    '...........ssssssss.............',
-    '...........smmmmms..............',
-    '...........smmmmms..............',
-    '...........ssssssss.............',
-    '...bb........................bb.',
-    '...bb........................bb.',
-    '...bb........................bb.',
-    '...bb........................bb.',
-    '................................',
-    '................................',
+    '....................',
+    '....................',
+    '....ssssssss........',
+    '....smmggmms........',
+    '....smmmmms.........',
+    '....ssssssss........',
+    '..bbbbbbbbbbbbbb....',
+    '..bppppppppppppb....',
+    '..bddddddddddddb....',
+    '..bkkkkcckkkkkkb....',
+    '..bb..........bb....',
+    '..bb..........bb....',
+    '..bb..........bb....',
+    '....................',
+    '....................',
+    '....................',
   ],
 };
 
@@ -84,37 +88,18 @@ const SOFA_PATTERN: SpritePattern = {
     s: 0x261a1c,
   },
   rows: [
-    '........................',
-    '..bbbbbbbbbbbbbbbbbb....',
-    '..bccccccccccccccccb....',
-    '..bccccccccccccccccb....',
-    '..bccccccccccccccccb....',
-    '..bbbbbbbbbbbbbbbbbb....',
-    '..bssssssssssssssssb....',
-    '..bssssssssssssssssb....',
-    '..bb..............bb....',
-    '..bb..............bb....',
-    '........................',
-    '........................',
-  ],
-};
-
-const TABLE_PATTERN: SpritePattern = {
-  pixelSize: 3,
-  palette: {
-    '.': 0x000000,
-    t: 0x6b4a3c,
-    l: 0x39261e,
-  },
-  rows: [
-    '................',
-    '.tttttttttttt...',
-    '.tttttttttttt...',
-    '.tttttttttttt...',
-    '..ll......ll....',
-    '..ll......ll....',
-    '..ll......ll....',
-    '................',
+    '................................................',
+    '..bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb....',
+    '..bcccccccccccccccccccccccccccccccccccccccb....',
+    '..bcccccccccccccccccccccccccccccccccccccccb....',
+    '..bccccccssccccccssccccccssccccccsscccccccb....',
+    '..bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb....',
+    '..bssssssssssssssssssssssssssssssssssssssssb....',
+    '..bssssssssssssssssssssssssssssssssssssssssb....',
+    '..bb....................................bb....',
+    '..bb....................................bb....',
+    '................................................',
+    '................................................',
   ],
 };
 
@@ -194,9 +179,8 @@ export function createOfficeTextures(app: Application): OfficeTextures {
       fe: buildTexture(app, { ...BASE_AGENT_PATTERN, palette: ROLE_PALETTES.fe }),
       qa: buildTexture(app, { ...BASE_AGENT_PATTERN, palette: ROLE_PALETTES.qa }),
     },
-    desk: buildTexture(app, DESK_PATTERN),
+    workstation: buildTexture(app, WORKSTATION_PATTERN),
     sofa: buildTexture(app, SOFA_PATTERN),
-    table: buildTexture(app, TABLE_PATTERN),
     plant: buildTexture(app, PLANT_PATTERN),
     monitorGlow: buildTexture(app, GLOW_PATTERN),
   };

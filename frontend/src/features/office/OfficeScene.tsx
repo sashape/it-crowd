@@ -11,7 +11,7 @@ import {
   type FederatedPointerEvent,
 } from 'pixi.js';
 import type { Agent } from '../../types/domain';
-import { buildWaypointPath, getZoneTarget, OFFICE_WORLD_SIZE, type Point } from './office-layout';
+import { buildWaypointPath, DESK_POINTS, getZoneTarget, OFFICE_WORLD_SIZE, type Point } from './office-layout';
 import { createOfficeTextures, type OfficeTextures } from './pixel-assets';
 import type { AgentPresence } from './presence';
 
@@ -64,6 +64,8 @@ const FONT_BUBBLE = new TextStyle({
   breakWords: true,
 });
 
+const ROLE_ORDER: Agent['role'][] = ['pm', 'tl', 'be', 'fe', 'qa'];
+
 function stablePhaseFromId(agentId: string): number {
   let hash = 0;
   for (let index = 0; index < agentId.length; index += 1) {
@@ -79,7 +81,7 @@ function truncateBubbleText(text: string): string {
     return normalized;
   }
 
-  return `${normalized.slice(0, 89).trimEnd()}…`;
+  return `${normalized.slice(0, 89).trimEnd()}...`;
 }
 
 function createBackdrop(world: Container, textures: OfficeTextures): Graphics {
@@ -128,35 +130,32 @@ function createBackdrop(world: Container, textures: OfficeTextures): Graphics {
   title.position.set(24, 16);
   world.addChild(title);
 
-  const desk = new Sprite(textures.desk);
-  desk.position.set(90, 88);
-  world.addChild(desk);
+  for (const role of ROLE_ORDER) {
+    const point = DESK_POINTS[role];
 
-  const desk2 = new Sprite(textures.desk);
-  desk2.position.set(430, 88);
-  world.addChild(desk2);
+    const station = new Sprite(textures.workstation);
+    station.position.set(point.x - 30, point.y - 66);
+    station.zIndex = 30;
+    world.addChild(station);
+
+    const monitorGlow = new Sprite(textures.monitorGlow);
+    monitorGlow.position.set(point.x - 22, point.y - 70);
+    monitorGlow.alpha = 0.21;
+    monitorGlow.scale.set(0.8, 0.7);
+    monitorGlow.zIndex = 29;
+    world.addChild(monitorGlow);
+  }
 
   const sofa = new Sprite(textures.sofa);
-  sofa.position.set(96, 350);
+  sofa.position.set(95, 355);
+  sofa.scale.set(1.9, 1.1);
+  sofa.zIndex = 20;
   world.addChild(sofa);
-
-  const table = new Sprite(textures.table);
-  table.position.set(330, 382);
-  world.addChild(table);
 
   const plant = new Sprite(textures.plant);
   plant.position.set(860, 350);
+  plant.zIndex = 20;
   world.addChild(plant);
-
-  const monitorGlow1 = new Sprite(textures.monitorGlow);
-  monitorGlow1.position.set(120, 96);
-  monitorGlow1.alpha = 0.28;
-  world.addChild(monitorGlow1);
-
-  const monitorGlow2 = new Sprite(textures.monitorGlow);
-  monitorGlow2.position.set(460, 96);
-  monitorGlow2.alpha = 0.24;
-  world.addChild(monitorGlow2);
 
   const scanline = new Graphics();
   for (let y = 0; y < OFFICE_WORLD_SIZE.height; y += 4) {
@@ -169,7 +168,6 @@ function createBackdrop(world: Container, textures: OfficeTextures): Graphics {
 
   return scanline;
 }
-
 function setBubble(runtime: AgentRuntime, value: string | null): void {
   const message = value ? truncateBubbleText(value) : '';
   if (!message) {
@@ -347,9 +345,13 @@ export function OfficeScene({ agents, presenceByAgent, bubbleTextByAgent, select
         }
 
         runtime.idlePhase += deltaSeconds * 2.4;
-        const bob = Math.sin(runtime.idlePhase) * 1.2;
+        const isLounging = runtime.zone === 'lounge' && runtime.path.length === 0;
+        const bob = Math.sin(runtime.idlePhase) * (isLounging ? 0.25 : 1.2);
         runtime.container.position.set(runtime.position.x, runtime.position.y + bob);
-        runtime.shadow.scale.x = 0.96 + Math.abs(bob) * 0.02;
+        runtime.container.zIndex = Math.round(runtime.position.y);
+        runtime.shadow.scale.x = isLounging ? 1.22 : 0.96 + Math.abs(bob) * 0.02;
+        runtime.shadow.scale.y = isLounging ? 1.12 : 1;
+        runtime.sprite.position.y = isLounging ? 10 : 2;
       }
 
       scanline.y = (scanline.y + 0.05 * delta) % 3;
