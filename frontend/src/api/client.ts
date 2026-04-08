@@ -1,4 +1,12 @@
-import type { BootstrapPayload, CompanyState, CompanyStateResponse, DomainErrorResponse } from '../types/domain';
+import type {
+  BootstrapPayload,
+  CompanyState,
+  CompanyStateResponse,
+  CreateMessagePayload,
+  CreateTaskPayload,
+  DomainErrorResponse,
+  UpdateAgentPayload,
+} from '../types/domain';
 
 const DEFAULT_API_BASE = 'http://localhost:8000';
 const REQUEST_TIMEOUT_MS = 20_000;
@@ -108,6 +116,15 @@ async function fetchJson<T>(path: string, init: RequestInit = {}): Promise<T> {
   }
 }
 
+function createIdempotencyKey(): string {
+  const randomUuid = globalThis.crypto?.randomUUID?.();
+  if (randomUuid) {
+    return randomUuid;
+  }
+
+  return `idemp-${Date.now()}-${Math.round(Math.random() * 1_000_000)}`;
+}
+
 export async function fetchCompanyState(include: string[]): Promise<CompanyState> {
   const includeQuery = include.join(',');
   const response = await fetchJson<CompanyStateResponse>(`/api/company/state?include=${encodeURIComponent(includeQuery)}`, {
@@ -128,12 +145,65 @@ export async function fetchCompanyState(include: string[]): Promise<CompanyState
 }
 
 export async function bootstrapCompany(payload: BootstrapPayload): Promise<void> {
-  const idempotencyKey = crypto.randomUUID();
+  const idempotencyKey = createIdempotencyKey();
   await fetchJson('/api/company/bootstrap', {
     method: 'POST',
     headers: {
       'Idempotency-Key': idempotencyKey,
     },
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function updateAgent(agentId: string, payload: UpdateAgentPayload): Promise<void> {
+  await fetchJson(`/api/agents/${agentId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function createTask(payload: CreateTaskPayload): Promise<{ taskId: string; runId: string }> {
+  const idempotencyKey = createIdempotencyKey();
+  const response = await fetchJson<{ task_id: string; run_id: string }>('/api/tasks', {
+    method: 'POST',
+    headers: {
+      'Idempotency-Key': idempotencyKey,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  return {
+    taskId: response.task_id,
+    runId: response.run_id,
+  };
+}
+
+export async function postMessage(payload: CreateMessagePayload): Promise<{ messageId: string; runId: string }> {
+  const idempotencyKey = createIdempotencyKey();
+  const response = await fetchJson<{ message_id: string; run_id: string }>('/api/messages', {
+    method: 'POST',
+    headers: {
+      'Idempotency-Key': idempotencyKey,
+    },
+    body: JSON.stringify({
+      ...payload,
+      payload: payload.payload ?? {},
+      requires_response: payload.requires_response ?? false,
+    }),
+  });
+
+  return {
+    messageId: response.message_id,
+    runId: response.run_id,
+  };
+}
+
+export async function updateTask(
+  taskId: string,
+  payload: { status?: 'todo' | 'in_progress' | 'review' | 'done' | 'blocked'; current_phase?: 'intake' | 'planning' | 'execution' | 'review' | 'approval' | 'done' | 'blocked'; summary?: string },
+): Promise<void> {
+  await fetchJson(`/api/tasks/${taskId}`, {
+    method: 'PATCH',
     body: JSON.stringify(payload),
   });
 }

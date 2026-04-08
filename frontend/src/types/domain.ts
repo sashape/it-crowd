@@ -14,8 +14,13 @@ export interface Agent {
   name: string;
   managerAgentId: string | null;
   status: 'idle' | 'busy' | 'blocked' | 'offline';
+  modelProfile: string;
+  runtimeKind: 'mock_runtime' | 'openclaw';
+  delegationLimit: number;
   specializationHint: string;
   responsibilities: string[];
+  toolPolicy: Record<string, unknown>;
+  createdAt: string;
 }
 
 export interface Task {
@@ -63,10 +68,12 @@ export interface Message {
   runId: string | null;
   taskId: string | null;
   threadId: string;
-  messageType: string;
+  messageType: 'task_comment' | 'direct_message' | 'handoff' | 'escalation' | 'human_instruction' | 'system_notice';
   senderType: 'human' | 'agent' | 'system';
   senderAgentId: string | null;
   content: string;
+  mentionedAgentId?: string | null;
+  requiresResponse?: boolean;
   createdAt: string;
 }
 
@@ -104,6 +111,41 @@ export interface BootstrapPayload {
   company_name: string;
   company_prompt: string;
   language: 'ru' | 'en';
+}
+
+export interface UpdateAgentPayload {
+  role?: Agent['role'];
+  name?: string;
+  manager_agent_id?: string | null;
+  status?: Agent['status'];
+  model_profile?: string;
+  runtime_kind?: Agent['runtimeKind'];
+  delegation_limit?: number;
+  specialization_hint?: string;
+  responsibilities?: string[];
+  tool_policy?: Record<string, unknown>;
+}
+
+export interface CreateTaskPayload {
+  title: string;
+  description: string;
+  priority: 'low' | 'medium' | 'high' | 'urgent';
+  kind: 'analysis' | 'implementation' | 'review' | 'communication' | 'deployment' | 'external_action';
+  risk_level: 'low' | 'medium' | 'high' | 'critical';
+  requested_by: string;
+}
+
+export interface CreateMessagePayload {
+  run_id?: string;
+  task_id?: string;
+  thread_id: string;
+  message_type: Message['messageType'];
+  sender_type: 'human' | 'agent' | 'system';
+  sender_agent_id?: string;
+  content: string;
+  payload?: Record<string, unknown>;
+  mentioned_agent_id?: string;
+  requires_response?: boolean;
 }
 
 export interface DomainErrorResponse {

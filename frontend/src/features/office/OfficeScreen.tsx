@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import type { Agent, CompanyState, DomainEvent, MessagePostedPayload, Task } from '../../types/domain';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Agent, CompanyState, DomainEvent, MessagePostedPayload } from '../../types/domain';
 import { enqueueBubble, getCurrentBubble, pruneBubbles, type BubbleEntry } from './bubble-queue';
 import { OfficeScene } from './OfficeScene';
 import { buildPresenceProjection } from './presence';
-
-type PanelTab = 'tasks' | 'events' | 'approvals' | 'runs';
+import { ControlCenter } from '../control-center/ControlCenter';
 
 interface OfficeScreenProps {
   state: CompanyState;
@@ -28,24 +27,16 @@ function extractMessageBubble(event: DomainEvent): { agentId: string; text: stri
   };
 }
 
-function eventBubbleTemplate(language: 'ru' | 'en', eventType: string): string | null {
-  const ru: Record<string, string> = {
-    'task.assigned': 'Беру задачу в работу.',
-    'task.review_requested': 'Прошу ревью по результату.',
-    'task.blocked': 'Есть блокер, нужна помощь.',
-    'approval.required': 'Нужно подтверждение решения.',
-    'runtime.artifact_collected': 'Артефакт готов и сохранен.',
-  };
-
-  const en: Record<string, string> = {
+function eventBubbleTemplate(eventType: string): string | null {
+  const dictionary: Record<string, string> = {
     'task.assigned': 'Taking the task now.',
     'task.review_requested': 'Requesting review on output.',
     'task.blocked': 'Hit a blocker, need support.',
-    'approval.required': 'Approval is needed for next step.',
+    'approval.required': 'Approval is required for next step.',
     'runtime.artifact_collected': 'Artifact is ready and stored.',
+    'agent.updated': 'Settings updated from Control Center.',
   };
 
-  const dictionary = language === 'ru' ? ru : en;
   return dictionary[eventType] ?? null;
 }
 
@@ -66,38 +57,16 @@ function useCompactLayout(): boolean {
   return compact;
 }
 
-function formatTs(value: string): string {
-  try {
-    return new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  } catch {
-    return value;
-  }
-}
-
-function renderTaskOwner(task: Task, agentsById: Map<string, Agent>): string {
-  if (!task.ownerAgentId) {
-    return 'unassigned';
-  }
-
-  return agentsById.get(task.ownerAgentId)?.name ?? 'unknown';
-}
-
 export function OfficeScreen({ state, isSocketConnected, onRefresh }: OfficeScreenProps): JSX.Element {
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(state.agents[0]?.id ?? null);
-  const [activeTab, setActiveTab] = useState<PanelTab>('tasks');
   const [bubbleQueues, setBubbleQueues] = useState<Record<string, BubbleEntry[]>>({});
   const processedEventsRef = useRef<Set<string>>(new Set());
   const processedMessagesRef = useRef<Set<string>>(new Set());
 
   const isCompact = useCompactLayout();
 
-  const agentsById = useMemo(() => {
-    return new Map(state.agents.map((agent) => [agent.id, agent]));
-  }, [state.agents]);
-
-  const tasksById = useMemo(() => {
-    return new Map(state.tasks.map((task) => [task.id, task]));
-  }, [state.tasks]);
+  const agentsById = useMemo(() => new Map(state.agents.map((agent) => [agent.id, agent])), [state.agents]);
+  const tasksById = useMemo(() => new Map(state.tasks.map((task) => [task.id, task])), [state.tasks]);
 
   const presenceByAgent = useMemo(() => {
     return buildPresenceProjection({
@@ -172,7 +141,7 @@ export function OfficeScreen({ state, isSocketConnected, onRefresh }: OfficeScre
           continue;
         }
 
-        const template = eventBubbleTemplate(state.company.language, event.eventType);
+        const template = eventBubbleTemplate(event.eventType);
         if (!template) {
           continue;
         }
@@ -183,7 +152,7 @@ export function OfficeScreen({ state, isSocketConnected, onRefresh }: OfficeScre
 
       return hasChanges ? next : previous;
     });
-  }, [state.company.language, state.recent_events]);
+  }, [state.recent_events]);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -226,11 +195,6 @@ export function OfficeScreen({ state, isSocketConnected, onRefresh }: OfficeScre
   const selectedPresence = selectedAgent ? presenceByAgent[selectedAgent.id] : null;
   const selectedTask = selectedPresence?.focusTaskId ? tasksById.get(selectedPresence.focusTaskId) ?? null : null;
 
-  const taskItems = state.tasks.slice(0, 14);
-  const eventItems = state.recent_events.slice(0, 18);
-  const approvalItems = state.approvals.slice(0, 12);
-  const runItems = state.runs.slice(0, 10);
-
   return (
     <div className="office-shell">
       <section className="office-scene-section">
@@ -270,94 +234,7 @@ export function OfficeScreen({ state, isSocketConnected, onRefresh }: OfficeScre
         </div>
       </section>
 
-      <aside className={`office-panels ${isCompact ? 'is-compact' : ''}`}>
-        {isCompact ? (
-          <div className="panel-tabs">
-            <button type="button" className={activeTab === 'tasks' ? 'is-active' : ''} onClick={() => setActiveTab('tasks')}>
-              Tasks
-            </button>
-            <button type="button" className={activeTab === 'events' ? 'is-active' : ''} onClick={() => setActiveTab('events')}>
-              Events
-            </button>
-            <button type="button" className={activeTab === 'approvals' ? 'is-active' : ''} onClick={() => setActiveTab('approvals')}>
-              Approvals
-            </button>
-            <button type="button" className={activeTab === 'runs' ? 'is-active' : ''} onClick={() => setActiveTab('runs')}>
-              Runs
-            </button>
-          </div>
-        ) : null}
-
-        {(activeTab === 'tasks' || !isCompact) && (
-          <section className="panel-block">
-            <h3>Task Board</h3>
-            <ul>
-              {taskItems.map((task) => (
-                <li key={task.id}>
-                  <p>{task.title}</p>
-                  <small>
-                    {task.status} • {task.currentPhase} • {renderTaskOwner(task, agentsById)}
-                  </small>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {(activeTab === 'events' || !isCompact) && (
-          <section className="panel-block">
-            <h3>Event Stream</h3>
-            <ul>
-              {eventItems.map((event) => (
-                <li key={event.eventId}>
-                  <p>{event.eventType}</p>
-                  <small>
-                    {event.causedByType}:{event.causedById} • {formatTs(event.ts)}
-                  </small>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {(activeTab === 'approvals' || !isCompact) && (
-          <section className="panel-block">
-            <h3>Approvals</h3>
-            <ul>
-              {approvalItems.length === 0 ? (
-                <li>
-                  <p>No pending approvals</p>
-                </li>
-              ) : (
-                approvalItems.map((approval) => (
-                  <li key={approval.id}>
-                    <p>{approval.status}</p>
-                    <small>
-                      {approval.urgency} • {formatTs(approval.expiresAt)}
-                    </small>
-                  </li>
-                ))
-              )}
-            </ul>
-          </section>
-        )}
-
-        {(activeTab === 'runs' || !isCompact) && (
-          <section className="panel-block">
-            <h3>Runs</h3>
-            <ul>
-              {runItems.map((run) => (
-                <li key={run.runId}>
-                  <p>{run.status}</p>
-                  <small>
-                    steps {run.stepCount} • {run.outcome ?? 'n/a'}
-                  </small>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </aside>
+      <ControlCenter state={state} isCompact={isCompact} onRefresh={onRefresh} />
     </div>
   );
 }

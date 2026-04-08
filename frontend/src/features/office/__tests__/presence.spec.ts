@@ -10,8 +10,13 @@ const agents: Agent[] = [
     name: 'Dmitry',
     managerAgentId: null,
     status: 'idle',
+    modelProfile: 'balanced-v1',
+    runtimeKind: 'mock_runtime',
+    delegationLimit: 1,
     specializationHint: 'api',
     responsibilities: [],
+    toolPolicy: {},
+    createdAt: '2026-04-08T10:00:00.000Z',
   },
   {
     id: 'agent-2',
@@ -20,8 +25,13 @@ const agents: Agent[] = [
     name: 'Roman',
     managerAgentId: null,
     status: 'idle',
+    modelProfile: 'balanced-v1',
+    runtimeKind: 'mock_runtime',
+    delegationLimit: 1,
     specializationHint: 'quality',
     responsibilities: [],
+    toolPolicy: {},
+    createdAt: '2026-04-08T10:00:00.000Z',
   },
 ];
 
