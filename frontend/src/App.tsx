@@ -8,6 +8,11 @@ const STATE_INCLUDE = ['agents', 'tasks', 'approvals', 'recent_events', 'runs', 
 
 type AppMode = 'loading' | 'bootstrap' | 'office' | 'error';
 
+function isCompanyNotBootstrappedError(error: ApiError): boolean {
+  const normalized = error.message.toLowerCase();
+  return error.code === 'NOT_FOUND' || normalized.includes('not bootstrapped');
+}
+
 function isDomainEvent(value: unknown): value is DomainEvent {
   if (!value || typeof value !== 'object') {
     return false;
@@ -33,8 +38,7 @@ export default function App(): JSX.Element {
       setMode('office');
       setErrorMessage(null);
     } catch (error) {
-      // First run should open bootstrap flow on any state 404 response.
-      if (error instanceof ApiError && error.status === 404) {
+      if (error instanceof ApiError && error.status === 404 && isCompanyNotBootstrappedError(error)) {
         setMode('bootstrap');
         setWorkspace(null);
         setErrorMessage(null);

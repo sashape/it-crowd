@@ -109,4 +109,30 @@ describe('App integration', () => {
       expect(screen.getByTestId('office-scene')).toBeInTheDocument();
     });
   });
+
+  it('shows error screen for unrelated 404 route-not-found responses', async () => {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes('/api/company/state')) {
+        return new Response(
+          JSON.stringify({
+            message: 'The route api/company/state could not be found.',
+            exception: 'Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\NotFoundHttpException',
+          }),
+          {
+            status: 404,
+            headers: { 'Content-Type': 'application/json' },
+          },
+        );
+      }
+
+      return new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
+    });
+
+    vi.stubGlobal('fetch', fetchMock);
+    render(<App />);
+
+    expect(await screen.findByText('Unable to load office')).toBeInTheDocument();
+    expect(screen.getByText('The route api/company/state could not be found.')).toBeInTheDocument();
+  });
 });
