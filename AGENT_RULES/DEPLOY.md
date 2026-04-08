@@ -30,6 +30,13 @@ Start backend + postgres:
 make compose-up
 ```
 
+Start only postgres service (example):
+
+```bash
+make up postgres
+make up pg
+```
+
 Stop stack:
 
 ```bash
