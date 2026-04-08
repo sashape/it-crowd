@@ -10,6 +10,17 @@ import { DomainError } from '~/domain/errors.js';
 import { createDomainEvent } from '~/application/services/event-factory.js';
 import { createId, nowIso } from '~/application/services/utils.js';
 
+const MESSAGE_EXCERPT_LIMIT = 96;
+
+function createContentExcerpt(content: string): string {
+  const normalized = content.replace(/\s+/g, ' ').trim();
+  if (normalized.length <= MESSAGE_EXCERPT_LIMIT) {
+    return normalized;
+  }
+
+  return `${normalized.slice(0, MESSAGE_EXCERPT_LIMIT - 1).trimEnd()}…`;
+}
+
 export class PostMessageUseCase {
   public constructor(
     private readonly companyRepository: CompanyRepository,
@@ -98,6 +109,8 @@ export class PostMessageUseCase {
           message_type: message.messageType,
           message_schema_version: message.messageSchemaVersion,
           task_id: message.taskId,
+          sender_agent_id: message.senderAgentId,
+          content_excerpt: createContentExcerpt(message.content),
         },
       }),
     );

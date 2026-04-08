@@ -4,6 +4,7 @@ import type { TaskRepository } from '~/infrastructure/repositories/task-reposito
 import type { ApprovalRepository } from '~/infrastructure/repositories/approval-repository.js';
 import type { EventLogRepository } from '~/infrastructure/repositories/event-log-repository.js';
 import type { OrchestrationRunRepository } from '~/infrastructure/repositories/orchestration-run-repository.js';
+import type { MessageRepository } from '~/infrastructure/repositories/message-repository.js';
 import type { ExpireApprovalsUseCase } from '~/application/use-cases/expire-approvals.use-case.js';
 import { DomainError } from '~/domain/errors.js';
 
@@ -14,6 +15,7 @@ export class GetCompanyStateUseCase {
     private readonly taskRepository: TaskRepository,
     private readonly approvalRepository: ApprovalRepository,
     private readonly eventLogRepository: EventLogRepository,
+    private readonly messageRepository: MessageRepository,
     private readonly runRepository: OrchestrationRunRepository,
     private readonly expireApprovalsUseCase: ExpireApprovalsUseCase,
   ) {}
@@ -44,6 +46,10 @@ export class GetCompanyStateUseCase {
 
     if (include.has('recent_events')) {
       response.recent_events = await this.eventLogRepository.listByCompany(company.id, 200);
+    }
+
+    if (include.has('messages')) {
+      response.messages = await this.messageRepository.listByCompany(company.id, 200);
     }
 
     if (include.has('runs')) {

@@ -121,6 +121,7 @@ export function createAppContainer(options: ContainerOptions = {}): {
       taskRepository,
       approvalRepository,
       eventLogRepository,
+      messageRepository,
       runRepository,
       expireApprovalsUseCase,
     ),
