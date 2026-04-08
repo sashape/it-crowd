@@ -13,6 +13,8 @@ describe('api client', () => {
     expect(normalizeApiBaseUrl('')).toBe('http://localhost:8000');
     expect(normalizeApiBaseUrl('   ')).toBe('http://localhost:8000');
     expect(normalizeApiBaseUrl('http://localhost:8000/')).toBe('http://localhost:8000');
+    expect(normalizeApiBaseUrl('api')).toBe('/api');
+    expect(normalizeApiBaseUrl('/api/')).toBe('/api');
   });
 
   it('does not duplicate /api segment when base already ends with /api', async () => {

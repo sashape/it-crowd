@@ -21,6 +21,13 @@ export function normalizeApiBaseUrl(value: string | undefined): string {
     return DEFAULT_API_BASE;
   }
 
+  const isAbsolute = normalized.startsWith('http://') || normalized.startsWith('https://');
+  if (!isAbsolute) {
+    const withoutTrailing = normalized.endsWith('/') ? normalized.slice(0, -1) : normalized;
+    const withLeading = withoutTrailing.startsWith('/') ? withoutTrailing : `/${withoutTrailing}`;
+    return withLeading === '/' ? '' : withLeading;
+  }
+
   if (normalized.endsWith('/')) {
     return normalized.slice(0, -1);
   }
@@ -36,6 +43,10 @@ export function resolveRequestUrl(path: string): string {
   const base = getApiBaseUrl();
   const shouldStripApiPrefix = /\/api$/i.test(base) && path.startsWith('/api/');
   const normalizedPath = shouldStripApiPrefix ? path.slice('/api'.length) : path;
+  if (!base) {
+    return normalizedPath;
+  }
+
   return `${base}${normalizedPath}`;
 }
 
