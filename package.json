@@ -6,9 +6,13 @@
   "scripts": {
     "dev": "pnpm --filter it-crowd-backend dev",
     "dev:backend": "pnpm --filter it-crowd-backend dev",
+    "dev:frontend": "pnpm --filter it-crowd-frontend dev",
     "build": "pnpm --filter it-crowd-backend build",
+    "build:frontend": "pnpm --filter it-crowd-frontend build",
     "test": "pnpm --filter it-crowd-backend test",
+    "test:frontend": "pnpm --filter it-crowd-frontend test",
     "lint": "pnpm --filter it-crowd-backend lint",
-    "typecheck": "pnpm --filter it-crowd-backend typecheck"
+    "typecheck": "pnpm --filter it-crowd-backend typecheck",
+    "typecheck:frontend": "pnpm --filter it-crowd-frontend typecheck"
   }
 }
